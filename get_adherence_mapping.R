@@ -1,5 +1,6 @@
 ###########################################
-# Script to get adherence mapping of a study
+#' Script to get adherence mapping of a study
+#' Author: aryton.tediarjo@sagebase.org
 ##########################################
 library(bridgeclient)
 library(synapser)
@@ -9,8 +10,14 @@ synapser::synLogin()
 
 #' log in to bridge using bridgeclient
 bridgeclient::bridge_login(
-    study = "arc",
+    study = "mobile-toolbox",
     credentials_file = ".bridge_creds")
+
+OUTPUT_REF <- list(
+    filename = "bridge_mtb_adherence_eventStream.tsv",
+    parent_id = "syn20816722",
+    github_url = "https://github.com/Sage-Bionetworks/psorcast-validation-analysis/tree/main/analysis/adherence_analysis"
+)
 
 #' Function to get studies mapping
 #' @return bridge study name and their id 
@@ -112,13 +119,20 @@ get_adherence_streams <- function(data){
     })
 }
 
+main <- function(){
+    adherence_mapping <- get_studies_mapping() %>%
+        get_user_enrollments() %>% 
+        get_user_ids() %>%
+        get_adherence() %>% 
+        get_adherence_metadata() %>% 
+        get_adherence_streams() %>% 
+        dplyr::select(-type, -enrollments, -adherence) %>% 
+        readr::write_tsv(OUTPUT_REF$filename)
+    
+    file = synapser::File(OUTPUT_REF$filename, parent = OUTPUT_REF$parent_id)
+    synStore(file, 
+             executed = OUTPUT_REF$github_url)
+    unlink(OUTPUT_REF$filename)
+}
 
-adherence_mapping <- get_studies_mapping() %>%
-    get_user_enrollments() %>% 
-    get_user_ids() %>%
-    get_adherence() %>% 
-    get_adherence_metadata() %>% 
-    get_adherence_streams() %>% 
-    dplyr::select(-type, -enrollments, -adherence) 
-
-
+main()
