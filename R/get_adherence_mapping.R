@@ -5,7 +5,7 @@
 library(bridgeclient)
 library(synapser)
 library(tidyverse)
-source("bridge_helper.R")
+source("R/bridge_helpers.R")
 synapser::synLogin()
 
 #' log in to bridge using bridgeclient
@@ -13,10 +13,11 @@ bridgeclient::bridge_login(
     study = "mobile-toolbox",
     credentials_file = ".bridge_creds")
 
+#' output reference in synapse
 OUTPUT_REF <- list(
     filename = "bridge_mtb_adherence_eventStream.tsv",
     parent_id = "syn20816722",
-    github_url = "https://github.com/Sage-Bionetworks/psorcast-validation-analysis/tree/main/analysis/adherence_analysis"
+    git_url = "https://github.com/Sage-Bionetworks/dian_arc_adherence/blob/main/get_adherence_mapping.R"
 )
 
 #' Function to get studies mapping
@@ -120,6 +121,7 @@ get_adherence_streams <- function(data){
 }
 
 main <- function(){
+    #' get adherence 
     adherence_mapping <- get_studies_mapping() %>%
         get_user_enrollments() %>% 
         get_user_ids() %>%
@@ -129,6 +131,7 @@ main <- function(){
         dplyr::select(-type, -enrollments, -adherence) %>% 
         readr::write_tsv(OUTPUT_REF$filename)
     
+    #' save to synapse
     file = synapser::File(OUTPUT_REF$filename, parent = OUTPUT_REF$parent_id)
     synStore(file, 
              executed = OUTPUT_REF$github_url)
