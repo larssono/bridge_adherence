@@ -22,7 +22,7 @@ You will only required to change several parameters, as follows:
 ```R
 #' log in to bridge using bridgeclient
 bridgeclient::bridge_login(
-    study = "mobile-toolbox",
+    study = <change to desired bridge study app>,
     credentials_file = ".bridge_creds")
 ```
 Change credentials_file in .bridge_creds to your credentials from [requested account](https://docs.google.com/forms/d/e/1FAIpQLSfZAQwhaUjrgK73pU2XtD7PUCXEtoUOj3g0i2luSUlNQhGq8g/viewform), change study to your desired Bridge Study.
@@ -31,10 +31,8 @@ Change credentials_file in .bridge_creds to your credentials from [requested acc
 ```R
 #' output reference in synapse
 OUTPUT_REF <- list(
-    filename = <change to desired filename for adherence output>
-    parent_id = <synapse parent ID location>
-    ...
-)
+    filename = <change to desired filename for adherence output>,
+    parent_id = <synapse parent ID location>, ...)
 ```
 
 
