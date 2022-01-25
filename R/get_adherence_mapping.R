@@ -17,7 +17,7 @@ bridgeclient::bridge_login(
 OUTPUT_REF <- list(
     filename = "bridge_mtb_adherence_eventStream.tsv",
     parent_id = "syn20816722",
-    git_url = "https://github.com/Sage-Bionetworks/dian_arc_adherence/blob/main/get_adherence_mapping.R"
+    git_url = "https://github.com/Sage-Bionetworks/dian_arc_adherence/blob/main/R/get_adherence_mapping.R"
 )
 
 #' Function to get studies mapping
@@ -132,9 +132,15 @@ main <- function(){
         readr::write_tsv(OUTPUT_REF$filename)
     
     #' save to synapse
-    file = synapser::File(OUTPUT_REF$filename, parent = OUTPUT_REF$parent_id)
-    synStore(file, 
-             executed = OUTPUT_REF$git_url)
+    file <- synapser::File(OUTPUT_REF$filename, 
+                          parent = OUTPUT_REF$parent_id)
+    
+    activity <- synapser::Activity(
+        executed = OUTPUT_REF$git_url,
+        name = "fetch bridge data",
+        description = "normalize Bridge Adherence eventStreams"
+    )
+    synStore(file, activity = activity)
     unlink(OUTPUT_REF$filename)
 }
 
