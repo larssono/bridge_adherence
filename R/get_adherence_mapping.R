@@ -17,7 +17,7 @@ bridgeclient::bridge_login(
 OUTPUT_REF <- list(
     filename = "bridge_mtb_adherence_eventStream.tsv",
     parent_id = "syn20816722",
-    git_url = "https://github.com/Sage-Bionetworks/dian_arc_adherence/blob/main/R/get_adherence_mapping.R"
+    git_url = "https://github.com/Sage-Bionetworks/bridge_adherence/blob/main/R/get_adherence_mapping.R"
 )
 
 #' Function to get studies mapping
