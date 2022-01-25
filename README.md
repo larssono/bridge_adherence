@@ -1,4 +1,4 @@
-# Adherence - Code Snippet
+# Bridge Adherence
 This Github Repository is used to run adherence data using Bridge API with R. 
 
 ## How to Run:
