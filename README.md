@@ -3,8 +3,8 @@ This Github Repository is used to run adherence data using Bridge API with R.
 
 ## How to Run:
 
-### 1. Environment Requirements
-To copy the environment, you will require: 
+### 1. Requirements
+To run the scrpt, you will require: 
 - [R Renv Environment](https://rstudio.github.io/renv/articles/renv.html)
 - [Synapse Authentication](https://help.synapse.org/docs/Quick-Start:-Setting-Up-a-Project.2055471258.html)
 
