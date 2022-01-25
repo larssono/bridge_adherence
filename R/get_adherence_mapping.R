@@ -134,7 +134,7 @@ main <- function(){
     #' save to synapse
     file = synapser::File(OUTPUT_REF$filename, parent = OUTPUT_REF$parent_id)
     synStore(file, 
-             executed = OUTPUT_REF$github_url)
+             executed = OUTPUT_REF$git_url)
     unlink(OUTPUT_REF$filename)
 }
 
